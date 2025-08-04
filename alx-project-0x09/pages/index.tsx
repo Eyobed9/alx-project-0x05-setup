@@ -10,6 +10,7 @@ const Home: React.FC = () => {
 
 	const handleGenerateImage = async () => {
 		console.log("Generating Images");
+		console.log(process.env.NEXT_PUBLIC_GPT_API_KEY);
 	};
 
 	return (
@@ -28,7 +29,7 @@ const Home: React.FC = () => {
 						value={prompt}
 						onChange={(e) => setPrompt(e.target.value)}
 						placeholder="Enter your prompt here..."
-						className="w-full p-3 border border-gray-300 rounded-lg mb-4"
+						className="w-full text-gray-700 p-3 border border-gray-300 rounded-lg mb-4"
 					/>
 					<button
 						onClick={handleGenerateImage}
