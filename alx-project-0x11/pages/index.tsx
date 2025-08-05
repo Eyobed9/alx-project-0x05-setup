@@ -26,8 +26,12 @@ const Home: React.FC = () => {
 		}
 
 		const data = await resp.json();
-		setGeneratedImages(data.message);
 		setIsLoading(false);
+		setImageUrl(data?.message);
+		setGeneratedImages((prev) => [
+			...prev,
+			{ imageUrl: data?.message, prompt },
+		]);
 	};
 
 	return (
@@ -69,6 +73,29 @@ const Home: React.FC = () => {
 					/>
 				)}
 			</div>
+			{generatedImages.length ? (
+				<div className="text-gray-700">
+					<h3 className="text-2xl mt-4 font-bold text-center mb-4">
+						Generated Images
+					</h3>
+					<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-full md:max-w-[1100px] p-2 overflow-y-scroll h-96">
+						{generatedImages?.map(
+							({ imageUrl, prompt }: ImageProps, index) => (
+								<ImageCard
+									action={() => setImageUrl(imageUrl)}
+									imageUrl={imageUrl}
+									prompt={prompt}
+									key={index}
+									width="w-full"
+									height="h-40"
+								/>
+							)
+						)}
+					</div>
+				</div>
+			) : (
+				""
+			)}
 		</div>
 	);
 };
